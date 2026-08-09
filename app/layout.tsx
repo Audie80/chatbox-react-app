@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import { Suspense } from "react";
-import Error from "./error";
 import Loading from "./loading";
-import NotFound from "./not-found";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,13 +32,9 @@ export default function RootLayout({
         <h1 className="text-center">Bienvenue sur ce chat !</h1>
         <div className="d-flex align-items-center vh-100">
           <div className="container">
-            <ErrorBoundary fallback={<Error />}>
-              <Suspense fallback={<Loading />}>
-                <ErrorBoundary fallback={<NotFound />}>
-                  {children}
-                </ErrorBoundary>
-              </Suspense>
-            </ErrorBoundary>
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
           </div>
         </div>
       </body>

@@ -1,15 +1,15 @@
 'use client';
 
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Page() {
-
+  const router = useRouter();
   const [pseudo, setPseudo] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    redirect(`/chatbox/${pseudo}`)
+    router.push(`/chatbox/${pseudo}`);
   }
 
     return (

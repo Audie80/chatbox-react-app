@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "e2e:run": "cypress run"
   },
   "dependencies": {
     "next": "16.3.0",
@@ -18,6 +19,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "bootstrap": "^5.3.8",
+    "cypress": "^15.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "typescript": "^5"
