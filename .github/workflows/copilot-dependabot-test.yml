@@ -1,0 +1,53 @@
+name: Test Copilot on Dependabot PR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  copilot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install Copilot CLI
+        run: npm install -g @github/copilot
+
+      - name: Run Copilot
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
+        run: |
+          copilot -p "
+          You are working on a Dependabot pull request.
+
+          Your task is to update the dependencies involved in this pull request
+          and make the pull request ready to merge.
+
+          First inspect the current repository state and the changes already
+          present in this branch.
+
+          Then:
+          1. Understand what Dependabot is trying to update.
+          2. Inspect package.json and package-lock.json.
+          3. Run the project's relevant tests, linting, type checking and build.
+          4. Fix any issues caused by the dependency update.
+          5. Do not make unrelated changes.
+          6. Do not modify application behavior unless necessary to make the
+             dependency update compatible.
+          7. When everything passes, commit your changes with a clear commit message.
+          8. Do not merge the pull request.
+
+          Work autonomously until the task is complete.
+          " --allow-all-tools
