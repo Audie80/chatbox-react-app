@@ -18,6 +18,8 @@ jobs:
 
     steps:
       - name: Get PR source branch
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           BRANCH=$(gh pr view "${{ inputs.pr_number }}" \
             --repo "${{ github.repository }}" \
